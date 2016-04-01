@@ -1,0 +1,4 @@
+> DM <- read.csv("C:/Users/Meenakshi/Downloads/New.csv", header=FALSE, na.strings=" ", stringsAsFactors=FALSE)
+> View(DM)
+> DM[is.na(DM)]<- 999
+> write.csv(DM, "DM_no_missing.csv")
