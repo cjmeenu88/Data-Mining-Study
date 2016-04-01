@@ -1,0 +1,21 @@
+
+/****************import csv data file***************/
+>titanic_DM <- read.csv("C:/Users/Meenakshi/Downloads/titanic_DM.csv")
+>titanic_DM <- subset(titanic_DM, select=-c(Passenger,X)) // Remove columns
+
+/***********Apriori *********************/
+>rules = apriori(titanic_DM,parameter=list(support=0.001, confidence=0.2))
+>itemsets <- apriori(titanic_DM,parameter = list(supp = 0.001,target = "frequent itemsets"))
+>titaniC <- as(titanic_DM, "transactions")
+>SupportRatio <-  interestMeasure(itemsets,measure = c("CrossSupportRatio") ,transactions = titaniC)
+>quality(itemsets) <- cbind(quality(itemsets),SupportRatio)
+>itemset <- sort(itemsets[size(itemsets)>1], by ="SupportRatio")
+>rules <- ruleInduction(itemset,titaniC, control= list(verbose = TRUE)) 
+
+
+/**********************Find maximal itemset*******************/
+
+> maximal <- apriori(titanic_DM, parameter = list(support = 0.001, target="maximally frequent itemsets"))
+Apriori
+> maximalsort = sort(maximal,by='support')
+> inspect(maximalsort)
