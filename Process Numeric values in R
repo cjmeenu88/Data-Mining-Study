@@ -1,0 +1,32 @@
+n<-nrow(data)
+
+
+ActualCost <- function(n,column) {
+
+value<-extract_numeric(column)
+
+N<-vector()
+     
+     for( i in 1:n){
+        if(grepl("+K",column[i]))
+             N[i]<-value[i]*1000
+         else if(grepl("+M",column[i]))
+             N[i]<-value[i]*1000000
+         else if(grepl("+B",column[i]))
+             N[i]<-value[i]*1000000000
+	
+     }
+
+return(N)
+ }
+
+Replace <- function(column){
+
+column[column=="999"]<-NA
+column<-as.numeric(column)
+column[is.na(column)]<-round(median(column,na.rm=TRUE),digits=0)
+return(column)
+
+}
+
+write.csv(file,"file_name.csv")
